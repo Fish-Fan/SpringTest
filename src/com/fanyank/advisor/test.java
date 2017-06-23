@@ -34,15 +34,25 @@ public class test {
 //        waiter.greetTo("Jackson");
 
         //流程切面
-        String configPath = "com/fanyank/advisor/controlFlow.xml";
+//        String configPath = "com/fanyank/advisor/controlFlow.xml";
+//        ApplicationContext ctx = new ClassPathXmlApplicationContext(configPath);
+//
+//        Waiter waiter = (Waiter) ctx.getBean("waiter3");
+//        WaiterDelegate waiterDelegate = new WaiterDelegate();
+//        waiterDelegate.setWaiter(waiter);
+//
+//        waiter.serverTo("tom");
+//        waiter.greetTo("tom");
+//        waiterDelegate.service("tom");
+
+        //创建自动代理的切面
+        String configPath = "com/fanyank/advisor/autoProxyCreator.xml";
         ApplicationContext ctx = new ClassPathXmlApplicationContext(configPath);
 
-        Waiter waiter = (Waiter) ctx.getBean("waiter3");
-        WaiterDelegate waiterDelegate = new WaiterDelegate();
-        waiterDelegate.setWaiter(waiter);
+        Waiter waiter = (Waiter) ctx.getBean("waiter");
+        Seller seller = (Seller) ctx.getBean("seller");
+        waiter.greetTo("Tom");
+        seller.greetTo("Jackson");
 
-        waiter.serverTo("tom");
-        waiter.greetTo("tom");
-        waiterDelegate.service("tom");
     }
 }
