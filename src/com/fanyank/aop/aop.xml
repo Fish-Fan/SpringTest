@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-4.2.xsd">
+
+
+    <bean id="transactionManager" class="com.fanyank.aop.GreetingExceptionAdvice"/>
+    <bean id="forumServiceTarget" class="com.fanyank.service.ForumService"/>
+    <bean id="forumService" class="org.springframework.aop.framework.ProxyFactoryBean"
+          p:interceptorNames="transactionManager"
+          p:target-ref="forumServiceTarget"
+          p:proxyTargetClass="true"
+    />
+    <bean id="greetingAround" class="com.fanyank.aop.GreetingAroundAdvice"/>
+    <bean id="greetingBefore" class="com.fanyank.aop.GreetingBeforeAdvice"/>
+    <bean id="target" class="com.fanyank.aop.NavieWaiter"/>
+    <bean id="greetingAfter" class="com.fanyank.aop.GreetingAfterAdvice"/>
+    <bean id="waiter" class="org.springframework.aop.framework.ProxyFactoryBean"
+        p:interfaces="com.fanyank.aop.Waiter"
+        p:interceptorNames="greetingAround"
+        p:target-ref="target"
+
+    />
+
+
+</beans>
